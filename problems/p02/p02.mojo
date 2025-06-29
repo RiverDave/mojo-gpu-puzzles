@@ -15,8 +15,9 @@ fn add(
     a: UnsafePointer[Scalar[dtype]],
     b: UnsafePointer[Scalar[dtype]],
 ):
-    i = thread_idx.x
-    # FILL ME IN (roughly 1 line)
+    
+    i = thread_idx.x # so this is how we can tell which thread is running this kernel?
+    output[i] = a[i] + b[i]
 
 
 # ANCHOR_END: add
