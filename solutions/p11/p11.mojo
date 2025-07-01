@@ -92,14 +92,15 @@ fn conv_1d_block_boundary[
     # second: load elements needed for convolution at block boundary
     if local_i < CONV_2 - 1:
         # indices from next block
-        next_idx = global_i + TPB
-        if next_idx < SIZE_2:
-            shared_a[TPB + local_i] = a[next_idx]
+        boundary_idx = global_i + TPB
+        if boundary_idx < SIZE_2:
+            shared_a[TPB + local_i] = a[boundary_idx]
         else:
             # Initialize out-of-bounds elements to 0 to avoid reading from uninitialized memory
             # which is an undefined behavior
             shared_a[TPB + local_i] = 0
 
+    ### load convolution memory
     if local_i < CONV_2:
         shared_b[local_i] = b[local_i]
 
